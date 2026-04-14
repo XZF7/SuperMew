@@ -56,7 +56,8 @@ GRADE_PROMPT = (
     "Here is the retrieved document: \n\n {context} \n\n"
     "Here is the user question: {question} \n"
     "If the document contains keyword(s) or semantic meaning related to the user question, grade it as relevant. \n"
-    "Give a binary score 'yes' or 'no' score to indicate whether the document is relevant to the question."
+    "Give a binary score 'yes' or 'no' score to indicate whether the document is relevant to the question. "
+    "Respond in JSON format."
 )
 
 
@@ -200,7 +201,7 @@ def rewrite_question_node(state: RAGState) -> RAGState:
             "- step_back：包含具体名称、日期、代码等细节，需要先理解通用概念的问题。\n"
             "- hyde：模糊、概念性、需要解释或定义的问题。\n"
             "- complex：多步骤、需要分解或综合多种信息的复杂问题。\n"
-            f"用户问题：{question}"
+            f"用户问题：{question}\n请以 JSON 格式输出。"
         )
         try:
             decision = router.with_structured_output(RewriteStrategy).invoke(
